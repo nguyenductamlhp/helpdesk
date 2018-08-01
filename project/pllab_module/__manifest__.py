@@ -16,7 +16,7 @@
         "website",
         "hr_recruitment_vn",
         "hr",
-        "contact",
+        "contacts",
         "calendar",
         "l10n_vn_country_state",
         "website_support",
