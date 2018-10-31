@@ -33,5 +33,16 @@
             </field>
         </record>
 
+    <record id="view_project_task_kanban_inherit" model="ir.ui.view">
+            <field name="name">view.project.task.kanban.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="milestone_id" />
+                </field>
+            </field>
+        </record>
+
     </data>
 </openerp>
