@@ -55,7 +55,6 @@ class ProjectTask(models.Model):
         self.ensure_one()
         project = self.project_id
         owner = project and project.repo_owner_id or None
-        print ("project, owner", project, owner)
         if not project or not owner:
             return False
 
@@ -95,11 +94,16 @@ class ProjectTask(models.Model):
             if not rec.is_issue_exist():
                 raise Warning('Issue does not exist!')
             project = rec.project_id or None
-            if not project:
+            owner = project and project.repo_owner_id or None
+            if not project or not owner:
                 raise Warning('No project on task!')
-            acc = project.repo_id.account_id
-            github = Github(acc.login, acc.password)
-            repo = github.get_repo('%s/%s' % (acc.login, project.repo_id.name))
+
+            login = owner.github_login
+            password = owner.github_password
+            repository = project.repository
+
+            github = Github(login, password)
+            repo = github.get_repo('%s/%s' % (login, repository))
             issue= repo.get_issue(rec.issue_number)
             rec.name= issue.title
             rec.description = issue.body
@@ -110,11 +114,16 @@ class ProjectTask(models.Model):
             if not rec.is_issue_exist():
                 raise Warning('Issue does not exist!')
             project = rec.project_id or None
-            if not project:
+            owner = project and project.repo_owner_id or None
+            if not project or not owner:
                 raise Warning('No project on task!')
-            acc = project.repo_id.account_id
-            github = Github(acc.login, acc.password)
-            repo = github.get_repo('%s/%s' % (acc.login, project.repo_id.name))
+
+            login = owner.github_login
+            password = owner.github_password
+            repository = project.repository
+
+            github = Github(login, password)
+            repo = github.get_repo('%s/%s' % (login, repository))
             issue= repo.get_issue(rec.issue_number)
             issue.edit(title=rec.name, body=rec.description)
 
@@ -124,11 +133,16 @@ class ProjectTask(models.Model):
             if not rec.is_issue_exist():
                 raise Warning('Issue does not exist!')
             project = rec.project_id or None
-            if not project:
+            owner = project and project.repo_owner_id or None
+            if not project or not owner:
                 raise Warning('No project on task!')
-            acc = project.repo_id.account_id
-            github = Github(acc.login, acc.password)
-            repo = github.get_repo('%s/%s' % (acc.login, project.repo_id.name))
+
+            login = owner.github_login
+            password = owner.github_password
+            repository = project.repository
+
+            github = Github(login, password)
+            repo = github.get_repo('%s/%s' % (login, repository))
             issue = repo.get_issue(rec.issue_number)
             # Merge field
             title = issue.title + '\n' + rec.name
@@ -144,16 +158,20 @@ class ProjectTask(models.Model):
         Create issue on github from currnt task
         """
         for rec in self:
-            project = rec.project_id or None
-            if not project:
-                raise Warning('No project on task!')
             if rec.issue_number:
                 raise Warning('Task already has issue!')
-            acc = project.repo_id.account_id
-            github = Github(acc.login, acc.password)
-            repo = github.get_repo('%s/%s' % (acc.login, project.repo_id.name))
+            project = rec.project_id or None
+            owner = project and project.repo_owner_id or None
+            if not project or not owner:
+                raise Warning('No project on task!')
+
+            login = owner.github_login
+            password = owner.github_password
+            repository = project.repository
+
+            github = Github(login, password)
+            repo = github.get_repo('%s/%s' % (login, repository))
             issue = repo.create_issue(
                 rec.name,
                 body=rec.description)
             rec.issue_number = issue.number
-
