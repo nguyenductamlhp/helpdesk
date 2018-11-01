@@ -38,37 +38,20 @@ class ProjectProject(models.Model):
                 raise Warning('Setup github on repository onwer!')
             github = Github(login, password)
             g_repo = github.get_repo('%s/%s' % (login, rec.repository))
+            milestones = []
             # Get open milestone
-            open_milestones = g_repo.get_milestones(state='open')
-            for milestone in open_milestones:
-                # If milestone exist, update
-                number = milestone.number
-                milestones = milestone_env.search(
-                    [
-                        ('project_id', '=', rec.id),
-                        ('number', '=', int(number)),
-                    ])
-                if milestones:
-                    vals = {
-                        'state': milestone.state,
-                        'description': milestone.description,
-                        'name': milestone.title,
-                        'due_date': milestone.due_on
-                    }
-                    milestones.write(vals)
-                else:
-                    vals = {
-                        'project_id': rec.id,
-                        'state': 'open',
-                        'description': milestone.description,
-                        'name': milestone.title,
-                        'number': milestone.number,
-                        'due_date': milestone.due_on
-                    }
-                    milestone_env.create(vals)
+            try:
+                open_milestones = g_repo.get_milestones(state='open')
+                milestones.extend(open_milestones)
+            except:
+                pass
             # Get close milestone
-            close_milestones = g_repo.get_milestones(state='close')
-            for milestone in close_milestones:
+            try:
+                close_milestones = g_repo.get_milestones(state='close')
+                milestones.extend(close_milestones)
+            except:
+                pass
+            for milestone in milestones:
                 # If milestone exist, update
                 number = milestone.number
                 milestones = milestone_env.search(
@@ -85,7 +68,6 @@ class ProjectProject(models.Model):
                     }
                     milestones.write(vals)
                 else:
-
                     vals = {
                         'project_id': rec.id,
                         'state': 'open',
