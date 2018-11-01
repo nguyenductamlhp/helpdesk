@@ -24,6 +24,6 @@ class ProjectMilestone(models.Model):
     state = fields.Selection(
         [
             ('open', 'Open'),
-            ('close', 'Close')
+            ('closed', 'Closed')
         ]
     )

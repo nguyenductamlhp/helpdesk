@@ -70,7 +70,7 @@ class ProjectProject(models.Model):
                 else:
                     vals = {
                         'project_id': rec.id,
-                        'state': 'open',
+                        'state': milestone.state,
                         'description': milestone.description,
                         'name': milestone.title,
                         'number': milestone.number,
