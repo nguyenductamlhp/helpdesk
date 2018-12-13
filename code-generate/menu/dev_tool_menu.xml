@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="menu_dev_tool_root" model="ir.ui.menu">
-        <field name="name">Dev Tools</field>
-        <field name="sequence">200</field>
-    </record>
+    <menuitem id="menu_dev_tool_root"
+        name="Dev Tools"
+        sequence="200"
+        groups="project.group_project_manager"/>
+
+    <menuitem id="menu_dev_external"
+        name="External System"
+        parent="menu_dev_tool_root"
+        sequence="10"/>
 
     <record id="action_code_model" model="ir.actions.act_window">
         <field name="name">Model</field>
@@ -17,7 +22,7 @@
         name="Models"
         action="action_code_model"
         sequence="10"
-        parent="menu_dev_tool_root"
-        groups="base.group_system"/>
+        parent="menu_dev_external"
+        groups="project.group_project_manager"/>
 
 </odoo>
