@@ -11,7 +11,7 @@
         'base', 'project',
     ],
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         # 'views
         'views/code_model_view.xml',
 
