@@ -8,7 +8,7 @@
     'author': 'nguyenductamlhp',
     'contributors': ['Nguyen Duc Tam <nguyenductamlhp@gmail.com>'],
     'depends': [
-        'base',
+        'base', 'project',
     ],
     'data': [
         # 'security/ir.model.access.csv',
