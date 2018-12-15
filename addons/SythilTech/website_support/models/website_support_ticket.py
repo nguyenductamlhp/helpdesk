@@ -532,6 +532,7 @@ class WebsiteSupportTicketStates(models.Model):
     name = fields.Char(required=True, translate=True, string='State Name')
     mail_template_id = fields.Many2one('mail.template', domain="[('model_id','=','website.support.ticket')]", string="Mail Template", help="The mail message that the customer gets when the state changes")
     unattended = fields.Boolean(string="Unattended", help="If ticked, tickets in this state will appear by default")
+    sequence = fields.Integer('Sequence', default=10)
 
 class WebsiteSupportTicketPriority(models.Model):
 
