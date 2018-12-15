@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<openerp>
+<odoo>
     <data>
 
         <menuitem id="website_support_parent_menu" name="Customer Support" groups="support_staff" sequence="40"/>
@@ -17,5 +17,11 @@
         <menuitem id="website_support_help_page_menu" name="Help Pages" parent="website_support_config_parent_menu" action="website_support_help_page_action" groups="support_manager" sequence="90"/>
         <menuitem id="website_support_settings_menu" name="Settings" parent="website_support_config_parent_menu" action="website_support_settings_action" groups="support_manager" sequence="100"/>
 
+        <menuitem id="menu_website_support_ticket_stage_view"
+            name="Website Support Ticket Stage"
+            action="action_website_support_ticket_stage"
+            sequence="110"
+            parent="website_support_config_parent_menu"
+            groups="support_manager"/>
     </data>
-</openerp>
+</odoo>

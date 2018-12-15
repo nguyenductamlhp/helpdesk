@@ -18,6 +18,7 @@
         'views/website_support_ticket_categories_views.xml',
         'views/website_support_ticket_subcategory_views.xml',
         'views/website_support_ticket_states_views.xml',
+        'views/website_support_ticket_stage_view.xml',
         'views/website_support_ticket_tag_views.xml',
         'views/res_partner_views.xml',
         'views/res_users_views.xml',
@@ -27,7 +28,8 @@
         'views/website_support_settings_views.xml',
         'views/website_support_ticket_department_views.xml',
         'views/website_support_sla_views.xml',
-        'views/menus.xml',
+        'menu/website_support_menu.xml',
+
         'data/website_support_sequence.xml',
         'data/website.support.ticket.states.xml',
         'data/website.support.ticket.categories.xml',
