@@ -21,6 +21,11 @@
                             <label for="subject" class="oe_edit_only"/>
                             <h1><field name="subject"/></h1>
                         </div>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="base.group_user" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                            </button>
+                        </div>
                         <group>
                             <group>
                                 <field name="ticket_number"/>
@@ -90,7 +95,7 @@
             <field name="name">website.support.ticket.kanban.view</field>
             <field name="model">website.support.ticket</field>
             <field name="arch" type="xml">
-                <kanban class="o_res_partner_kanban" default_group_by="state" create="false">
+                <kanban class="o_res_partner_kanban" default_group_by="state">
                     <field name="subject"/>
                     <field name="priority_id"/>
                     <field name="state"/>
@@ -102,12 +107,15 @@
                                 <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
                                 <div class="oe_kanban_details">
                                     <strong class="oe_partner_heading"><field name="subject"/></strong>
-                                    <ul>
-                                        <li t-if="record.priority_id.raw_value"><field name="priority_id"/></li>
-                                        <li t-if="record.state.raw_value"><field name="state"/></li>
-                                        <li t-if="record.category.raw_value"><field name="category"/></li>
-                                    </ul>
                                     <div class="oe_kanban_partner_links"/>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <li t-if="record.priority_id.raw_value"><field name="priority_id"/></li>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <li t-if="record.category.raw_value"><field name="category"/></li>
+                                    </div>
                                 </div>
                             </div>
                         </t>
