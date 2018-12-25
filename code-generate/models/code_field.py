@@ -4,7 +4,7 @@
 from odoo import api, fields, models
 from odoo.exceptions import Warning
 
-FIELD_PYTHON_PATTERN = '%s = fields.%s(string=%s, required=%s, readonly=%s, help=%s)'
+FIELD_PYTHON_PATTERN = "%s = fields.%s(string='%s', required=%s, readonly=%s, help='%s')"
 FIELD_XML_PATTERN = '<field name="%s" string="%s"/>'
 
 
@@ -30,6 +30,7 @@ class CodeField(models.Model):
             ('binary', 'Binary'),
             ('many2one', 'Many2one'),
             ('many2many', 'Many2many'),
+            ('one2many', 'One2many'),
             ('date', 'Date'),
             ('datetime', 'DateTime'),
             ('selection', 'Selection'),
@@ -38,7 +39,7 @@ class CodeField(models.Model):
         default='char',
         string='Model Type'
     )
-    field_help = fields.Text('Help')
+    field_help = fields.Text('Help', default='')
     model_id = fields.Many2one(
         'code.model', string='Model')
 
@@ -71,7 +72,7 @@ class CodeField(models.Model):
                 'field_type'].selection).get(field.field_type)
             field.python_definition = FIELD_PYTHON_PATTERN % (
                 field.field_name, fieldtype, field.field_string,
-                field.is_required, field.is_readonly, field.field_help or "''")
+                field.is_required, field.is_readonly, field.field_help or field.field_string)
 
     @api.multi
     def generate_xml_definition(self):

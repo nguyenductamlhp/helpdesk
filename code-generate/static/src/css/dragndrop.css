@@ -1,0 +1,27 @@
+
+.dragndrop {
+}
+.dragndrop > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.dragndrop > li {
+    margin: 5px;
+    padding: 5px;
+    width: 150px;
+}
+
+.o_field {
+    color: black;
+    background: green;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.o_form {
+    border-style: solid;
+    border-width: 2px;
+}
