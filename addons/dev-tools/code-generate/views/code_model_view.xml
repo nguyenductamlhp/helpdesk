@@ -10,7 +10,7 @@
                     </header>
                     <div class="oe_title">
                         <h1>
-                            <field name="model_string" placeholder="Model Name"/>
+                            <field name="model_string" placeholder="Model Name" widget="digit_char"/>
                         </h1>
                     </div>
                     <group>

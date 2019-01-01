@@ -14,6 +14,7 @@
         'security/ir.model.access.csv',
         # 'views
         'views/code_model_view.xml',
+        'views/dev_server_view.xml',
 
         # 'menu/
         'menu/dev_tool_menu.xml',
