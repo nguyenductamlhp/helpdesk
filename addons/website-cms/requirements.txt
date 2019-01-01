@@ -1,3 +1,0 @@
-Pygments
-# cms_account_form
-validate_email
