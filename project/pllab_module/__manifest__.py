@@ -22,7 +22,6 @@
         "website_support",
         "visible_search_menu",
         "auditlog",
-        "auto_backup",
         "web_notify",
         "l10n_vn",
         "website_blog",
