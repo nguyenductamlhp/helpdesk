@@ -28,7 +28,7 @@
         "website_blog",
     ],
     'data': [
-        'view/project/project_config_setting_view.xml',
+        'view/project/project_project_view.xml',
     ],
     'installable': True,
 }
