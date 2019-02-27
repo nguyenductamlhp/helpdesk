@@ -5,7 +5,7 @@
             <field name="name">Folder</field>
             <field name="code">application/vnd.google-apps.folder</field>
             <field name="description"></field>
-            <field name="description">True</field>
+            <field name="is_dir">True</field>
         </record>
     </data>
 </odoo>
