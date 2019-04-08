@@ -101,6 +101,7 @@ class WebsiteSupportTicket(models.Model):
     sla_rule_id = fields.Many2one('website.support.sla.rule', string="SLA Rule")
     sla_alert_ids = fields.Many2many('website.support.sla.alert', string="SLA Alerts",
                                      help="Keep record of SLA alerts sent so we do not resend them")
+    active = fields.Boolean('Active', default=True)
 
     @api.one
     @api.depends('sla_timer')
@@ -143,7 +144,7 @@ class WebsiteSupportTicket(models.Model):
             elif active_sla_ticket.sla_rule_id.countdown_condition == '24_hour':
                 #Countdown even if the business hours setting is not set
                 active_sla_ticket.sla_timer -= 1/60
-                
+
             #(DEPRICATED use sla_rule_id) If we only countdown during busines hours
             if active_sla_ticket.sla_response_category_id.countdown_condition == 'business_only':
                 # Check if the current time aligns with a timeslot in the settings,
@@ -362,7 +363,7 @@ class WebsiteSupportTicket(models.Model):
 
         #Check if this contact has a SLA assigned
         if new_id.partner_id.sla_id:
-            
+
             #Go through all rules starting from the lowest response time
             for sla_rule in new_id.partner_id.sla_id.rule_ids:
                 #All conditions have to match
@@ -382,7 +383,7 @@ class WebsiteSupportTicket(models.Model):
                         all_true = False
                     elif sla_rule_con.type == "priority" and new_id.priority_id.id != sla_rule_con.priority_id.id:
                         all_true = False
-                
+
                 if all_true:
                     new_id.sla_id = new_id.partner_id.sla_id.id
                     new_id.sla_active = True
@@ -531,6 +532,7 @@ class WebsiteSupportTicketStates(models.Model):
     name = fields.Char(required=True, translate=True, string='State Name')
     mail_template_id = fields.Many2one('mail.template', domain="[('model_id','=','website.support.ticket')]", string="Mail Template", help="The mail message that the customer gets when the state changes")
     unattended = fields.Boolean(string="Unattended", help="If ticked, tickets in this state will appear by default")
+    sequence = fields.Integer('Sequence', default=10)
 
 class WebsiteSupportTicketPriority(models.Model):
 
