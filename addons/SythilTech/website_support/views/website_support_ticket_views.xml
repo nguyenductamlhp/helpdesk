@@ -62,12 +62,21 @@
                                     </field>
                                 </group>
                             </page>
-                            <page string="Attachments">
+                            <page string="Attachments" attrs="{'invisible' :[('attachment_ids', '=', [])]}">
                                 <group>
-                                    <field name="attachment_ids" attrs="{'invisible' :[('attachment_ids', '=', [])]}">
-                                        <tree>
+                                    <field name="attachment_ids" >
+                                        <kanban>
                                             <field name="datas_fname"/>
-                                        </tree>
+                                            <templates>
+                                                <t t-name="kanban-box">
+                                                    <div class="oe_kanban_global_click">
+                                                        <div class="o_kanban_image">
+                                                            <field name="datas" widget="image" />
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </templates>
+                                        </kanban>
                                     </field>
                                 </group>
                             </page>
