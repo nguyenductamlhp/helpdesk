@@ -1,2 +1,0 @@
-# Odoo
-Odoo Modules
