@@ -113,7 +113,9 @@
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click o_res_partner_kanban">
-                                <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                <div class="o_kanban_tags_section oe_kanban_partner_categories">
+                                  <field name="person_name" />
+                                </div>
                                 <div class="oe_kanban_details">
                                     <strong class="oe_partner_heading"><field name="subject"/></strong>
                                     <div class="oe_kanban_partner_links"/>
