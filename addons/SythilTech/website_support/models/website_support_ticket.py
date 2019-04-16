@@ -109,6 +109,7 @@ class WebsiteSupportTicket(models.Model):
     sla_alert_ids = fields.Many2many('website.support.sla.alert', string="SLA Alerts",
                                      help="Keep record of SLA alerts sent so we do not resend them")
     active = fields.Boolean('Active', default=True)
+    task_id  = fields.Many2one('project.task', string='Task')
 
     @api.one
     @api.depends('sla_timer')

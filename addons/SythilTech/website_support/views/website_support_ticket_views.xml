@@ -35,6 +35,7 @@
                                 <field name="tag_ids" widget="many2many_tags"/>
                                 <field name="category"/>
                                 <field name="sub_category_id" domain="[('parent_category_id','=',category)]"/>
+                                <field name="task_id"/>
                             </group>
                             <group>
                                 <field name="user_id" domain="[('share','=',False)]"/>
