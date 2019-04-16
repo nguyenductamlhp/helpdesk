@@ -41,8 +41,11 @@ class WebsiteSupportTicket(models.Model):
 
         return states.browse(state_ids)
 
-    def _default_state(self):
-        return self.env['ir.model.data'].get_object('website_support', 'website_ticket_state_open')
+    def _default_stage(self):
+        stage = self.env[
+            'website.support.ticket.stage'].search(
+                [], order='sequence', limit=1)
+        return stage or None
 
     def _default_priority_id(self):
         default_priority = self.env['website.support.ticket.priority'].search([('sequence','=','1')])
@@ -64,8 +67,12 @@ class WebsiteSupportTicket(models.Model):
     sub_category_id = fields.Many2one('website.support.ticket.subcategory', string="Sub Category")
     subject = fields.Char(string="Subject")
     description = fields.Text(string="Description")
-    state = fields.Many2one('website.support.ticket.states', group_expand='_read_group_state', default=_default_state,
+    state = fields.Many2one('website.support.ticket.states', group_expand='_read_group_state',
                             string="State")
+    stage_ids = fields.Many2one(
+        'website.support.ticket.stage',
+        default=_default_stage,
+        string="Stage")
     conversation_history = fields.One2many('website.support.ticket.message', 'ticket_id', string="Conversation History")
     attachment = fields.Binary(string="Attachments")
     attachment_filename = fields.Char(string="Attachment Filename")

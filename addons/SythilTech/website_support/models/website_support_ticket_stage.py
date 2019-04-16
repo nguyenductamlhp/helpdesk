@@ -9,5 +9,5 @@ class WebsiteSupportTicketStage(models.Model):
 
     name = fields.Char(
         string='Name', required=True, readonly=False, help='Name of Stage')
-    sequence = fields.Char(
-        string='Sequence', required=False, readonly=False)
+    sequence = fields.Integer(
+        string='Sequence', required=False, readonly=False, default=10)

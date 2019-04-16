@@ -15,7 +15,7 @@
                         <button type="object" name="resume_sla" string="Resume SLA" attrs="{'invisible' :['|', ('sla_active', '!=', False ), ('sla_id','==', False)]}"/>
                         <button type="object" name="send_survey" string="Send Survey"/>
                         <button type="object" name="request_approval" string="Request Approval"/>
-                        <field name="state" widget="statusbar" clickable="1"/>
+                        <field name="stage_ids" widget="statusbar" clickable="1"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
