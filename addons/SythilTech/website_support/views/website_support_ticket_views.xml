@@ -110,22 +110,25 @@
                     <field name="state"/>
                     <field name="category"/>
                     <field name="description"/>
+                    <field name="ticket_color"/>
                     <templates>
                         <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click o_res_partner_kanban">
-                                <div class="o_kanban_tags_section oe_kanban_partner_categories">
-                                  <field name="person_name" />
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.ticket_color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_headings">
+                                    <h4><b><field name="subject"/></b></h4><br/>
                                 </div>
-                                <div class="oe_kanban_details">
-                                    <strong class="oe_partner_heading"><field name="subject"/></strong>
-                                    <div class="oe_kanban_partner_links"/>
+                                <div class="o_kanban_tags_section oe_kanban_partner_categories">
+
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                 </div>
                                 <div class="o_kanban_record_bottom">
                                     <div class="oe_kanban_bottom_left">
-                                        <li t-if="record.priority_id.raw_value"><field name="priority_id"/></li>
+                                        <div t-if="record.priority_id.raw_value"><field name="person_name" /></div>
                                     </div>
                                     <div class="oe_kanban_bottom_right">
-                                        <li t-if="record.category.raw_value"><field name="category"/></li>
+                                        <div t-if="record.category.raw_value"><i><field name="category"/></i></div>
                                     </div>
                                 </div>
                             </div>

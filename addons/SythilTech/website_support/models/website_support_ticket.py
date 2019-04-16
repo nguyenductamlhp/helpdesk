@@ -554,6 +554,7 @@ class WebsiteSupportTicketTag(models.Model):
     _name = "website.support.ticket.tag"
 
     name = fields.Char(required=True, translate=True, string="Tag Name")
+    color = fields.Integer(string="Color")
 
 class WebsiteSupportTicketUsers(models.Model):
 
