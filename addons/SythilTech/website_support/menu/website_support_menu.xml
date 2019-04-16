@@ -19,7 +19,7 @@
         <menuitem id="website_support_settings_menu" name="Settings" parent="website_support_config_parent_menu" action="website_support_settings_action" groups="support_manager" sequence="100"/>
 
         <menuitem id="menu_website_support_ticket_stage_view"
-            name="Website Support Ticket Stage"
+            name="Support Stages"
             action="action_website_support_ticket_stage"
             sequence="110"
             parent="website_support_config_parent_menu"
