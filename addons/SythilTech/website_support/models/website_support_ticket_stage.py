@@ -6,6 +6,7 @@ from odoo import fields, models, api, _
 
 class WebsiteSupportTicketStage(models.Model):
     _name = 'website.support.ticket.stage'
+    _order = 'sequence'
 
     name = fields.Char(
         string='Name', required=True, readonly=False, help='Name of Stage')
