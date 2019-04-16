@@ -53,6 +53,15 @@
                             <page string="Description" name="description">
                                 <field name="description" widget="html"/>
                             </page>
+                            <page string="Conversation" name="conversation">
+                                <field name="conversation_history" readonly="1">
+                                    <tree>
+                                        <field name="create_date"/>
+                                        <field name="by"/>
+                                        <field name="content"/>
+                                    </tree>
+                                </field>
+                            </page>
                             <page string="Extra Fields">
                                 <group>
                                     <field name="extra_field_ids">

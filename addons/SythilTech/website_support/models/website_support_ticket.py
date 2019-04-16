@@ -488,6 +488,7 @@ class WebsiteSupportTicketField(models.Model):
 class WebsiteSupportTicketMessage(models.Model):
 
     _name = "website.support.ticket.message"
+    _order = 'create_date'
 
     ticket_id = fields.Many2one('website.support.ticket', string='Ticket ID')
     by = fields.Selection([('staff','Staff'), ('customer','Customer')], string="By")
