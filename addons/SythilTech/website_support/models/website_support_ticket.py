@@ -69,7 +69,7 @@ class WebsiteSupportTicket(models.Model):
     description = fields.Text(string="Description")
     state = fields.Many2one('website.support.ticket.states', group_expand='_read_group_state',
                             string="State")
-    stage_ids = fields.Many2one(
+    stage_id = fields.Many2one(
         'website.support.ticket.stage',
         default=_default_stage,
         string="Stage")
