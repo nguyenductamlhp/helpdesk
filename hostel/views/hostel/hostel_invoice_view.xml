@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hostel_invoice_tree" model="ir.ui.view">
+        <field name="name">view.hostel.invoice.tree</field>
+        <field name="model">hostel.invoice</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hostel_invoice_form" model="ir.ui.view">
+        <field name="name">view.hostel.invoice.form</field>
+        <field name="model">hostel.invoice</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Confirm" name="action_confirm" states="draft" type="object" class="oe_highlight" />
+                    <button string="Validate" name="action_validate" states="confirm" type="object" class="oe_highlight" />
+                    <button string="Cancel" name="action_cancel" states="confirm" type="object" class="oe_highlight" />
+                    <button string="Reset To Draft" name="reset_to_draft" type="object" class="oe_highlight" />
+                    <field name="state" widget="statusbar" readonly="1" on_change="1" />
+                </header>
+                <div class="oe_title" modifiers="{}">
+                    <h1>
+                        <field name="name" />
+                    </h1>
+                </div>
+                <group>
+                    <field name="room_id"></field>
+                    <field name="invoice_date"></field>
+                    <field name="state" readonly="1"/>
+                    <field name="responsible_ids" widget="many2many_tags"/>
+                </group>
+                <group string="Invoice Lines">
+                    <field name="invoice_line_ids" nolabel="1" context="{'default_invoice_id': active_id}">
+                        <tree editable="bottom">
+                            <field name="invoice_id" readonly="1" group="base.group_no_one"/>
+                            <field name="product_id" />
+                            <field name="quantity" />
+                            <field name="unit_price" />
+                            <field name="total" sum="Total"/>
+                            <field name="invoice_date" />
+                            <field name="owner_id" domain="[('id', 'in', responsible_ids)]"/>
+                            <field name="responsible_ids" widget="many2many_tags"/>
+                        </tree>
+                    </field>
+                </group>
+                <group string="Payments">
+                    <field name="payment_ids" nolabel="1">
+                        <tree>
+                            <field name="partner_id" />
+                            <field name="total" />
+                            <field name="paid" />
+                            <field name="remain" />
+                            <field name="state" />
+                            <field name="payment_date" />
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="partner_id" />
+                                <field name="total" />
+                                <field name="state" />
+                                <field name="payment_date" />
+                            </group>
+                            <group>
+                                <field name="payment_line_ids">
+                                    <tree>
+                                        <field name="invoice_line_id" />
+                                        <field name="product_id" />
+                                        <field name="quantity" />
+                                        <field name="unit_price" />
+                                        <field name="total" />
+                                        <field name="amount" />
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </form>
+                    </field>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>
