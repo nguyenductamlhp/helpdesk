@@ -29,15 +29,21 @@
                     </h1>
                 </div>
                 <group>
-                    <field name="room_id"></field>
-                    <field name="invoice_date"></field>
-                    <field name="state" readonly="1"/>
-                    <field name="responsible_ids" widget="many2many_tags"/>
+                    <group>
+                        <field name="room_id"></field>
+                        <field name="responsible_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="invoice_date"></field>
+                        <field name="date_from" />
+                        <field name="date_to"/>
+                    </group>
+
                 </group>
                 <group string="Invoice Lines">
                     <field name="invoice_line_ids" nolabel="1" context="{'default_invoice_id': active_id}">
                         <tree editable="bottom">
-                            <field name="invoice_id" readonly="1" group="base.group_no_one"/>
+                            <field name="invoice_id" invisible="1"/>
                             <field name="product_id" />
                             <field name="quantity" />
                             <field name="unit_price" />

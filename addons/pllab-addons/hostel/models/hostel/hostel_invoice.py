@@ -10,9 +10,11 @@ from odoo.exceptions import Warning
 class HostelInvoice(models.Model):
     _name = 'hostel.invoice'
 
-    name = fields.Char('Reference')
+    name = fields.Char('Reference', compute='_compute_invoice_name')
     room_id = fields.Many2one('hostel.room', 'Room', required=True)
-    invoice_date = fields.Date('Date')
+    date_from = fields.Date('Form')
+    date_to = fields.Date('To')
+    invoice_date = fields.Date('Invoice Date')
     invoice_line_ids = fields.One2many('hostel.invoice.line', 'invoice_id', 'Invoice Lines')
     payment_ids = fields.One2many('hostel.invoice.payment', 'invoice_id', 'Payments')
 
@@ -32,6 +34,13 @@ class HostelInvoice(models.Model):
     def onchange_reponsible(self):
         self.responsible_ids = self.room_id and self.room_id.member_ids
 
+    @api.depends('room_id', 'invoice_date')
+    def _compute_invoice_name(self):
+        for rec in self:
+            if not all([rec.room_id, rec.invoice_date]):
+                continue
+            rec.name = rec.room_id.name + '-' + rec.invoice_date
+
     @api.multi
     def generate_payment(self):
         """
@@ -47,7 +56,6 @@ class HostelInvoice(models.Model):
                 }
                 payment = payment_env.create(payment_vals)
 
-
     @api.multi
     def action_confirm(self):
         """Chnage state to confirm and generate payment (lines)
@@ -56,6 +64,7 @@ class HostelInvoice(models.Model):
             invoice.generate_payment()
             for line in invoice.invoice_line_ids:
                 line.generate_payment_line()
+            invoice.state = 'confirm'
 
     @api.multi
     def reset_to_draft(self):
@@ -65,3 +74,10 @@ class HostelInvoice(models.Model):
                     line.unlink()
                 payment.unlink()
             invoice.state = 'draft'
+
+    @api.multi
+    def action_validate(self):
+        """Change state to validate
+        """
+        for invoice in self:
+            invoice.state = 'validate'
