@@ -14,6 +14,7 @@ git subtree add --prefix=addons/server-ux https://github.com/OCA/server-ux.git 1
 git subtree add --prefix=addons/web https://github.com/OCA/web.git 11.0 --squash -m 'add web:11.0 subtree in addons/web'
 git subtree add --prefix=addons/website https://github.com/OCA/website.git 11.0 --squash -m 'add website:11.0 subtree in addons/website'
 git subtree add --prefix=addons/website-cms https://github.com/OCA/website-cms.git 11.0 --squash -m 'add website-cms:11.0 subtree in addons/website-cms'
+git subtree add --prefix=addons/helpdesk https://github.com/OCA/helpdesk.git 11.0 --squash -m 'add helpdesk:11.0 subtree in addons/helpdesk'
 
 echo "--------- [Subtree thirdparty addons] ---------"
 git subtree add --prefix=addons/daily-info git@github.com:nguyenductamlhp/daily-info.git 11.0 --squash -m 'add daily-info:11.0 subtree in addons/daily-info'
