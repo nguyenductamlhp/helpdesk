@@ -19,7 +19,6 @@
         "contacts",
         "calendar",
         "l10n_vn_country_state",
-        "website_support",
         "visible_search_menu",
         "auditlog",
         "web_notify",
