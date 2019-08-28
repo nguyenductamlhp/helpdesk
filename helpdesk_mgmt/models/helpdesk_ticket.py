@@ -43,7 +43,7 @@ class HelpdeskTicket(models.Model):
 
     last_stage_update = fields.Datetime(
         string='Last Stage Update',
-        default=fields.Datetime.now(),
+        default=fields.Datetime.now,
     )
     assigned_date = fields.Datetime(string='Assigned Date')
     closed_date = fields.Datetime(string='Closed Date')
@@ -111,14 +111,18 @@ class HelpdeskTicket(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('number', '/') == '/':
-            vals['number'] = self.env['ir.sequence'].next_by_code(
-                'helpdesk.ticket.sequence'
-            ) or '/'
+            seq = self.env['ir.sequence']
+            if 'company_id' in vals:
+                seq = seq.with_context(force_company=vals['company_id'])
+            vals['number'] = seq.next_by_code(
+                'helpdesk.ticket.sequence') or '/'
         res = super().create(vals)
 
         # Check if mail to the user has to be sent
         if vals.get('user_id') and res:
             res.send_user_mail()
+            if not vals.get('assigned_date'):
+                res['assigned_date'] = fields.Datetime.now()
         return res
 
     @api.multi
