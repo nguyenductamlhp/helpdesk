@@ -48,31 +48,31 @@
                         <page string="Menu Action Definition">
                             <field name="menu_action_define" widget="ace" options="{'mode': 'xml'}"/>
                         </page>
-                        <page string="Grad Drop">
-                            <group>
-                                <templates>
-                                    <div>
-                                        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-                                        <link rel="stylesheet" href="/code-generate/static/src/css/dragndrop.css" />
-                                        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-                                        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-                                        <script src="/code-generate/static/src/js/dragndrop.js"></script>
-                                        <ul class="dragndrop">
-                                            <li id="draggable" class="o_field">Drag me down</li>
-                                        </ul>
-                                        <div id="o_form" class="o_form">
-                                            <ul class="dragndrop" id="sortable">
-                                                <li class="o_field">Item 1</li>
-                                                <li class="o_field">Item 2</li>
-                                                <li class="o_field">Item 3</li>
-                                                <li class="o_field">Item 4</li>
-                                                <li class="o_field">Item 5</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </templates>
-                            </group>
-                        </page>
+                        <!--<page string="Grad Drop">-->
+                        <!--    <group>-->
+                        <!--        <templates>-->
+                        <!--            <div>-->
+                        <!--                <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />-->
+                        <!--                <link rel="stylesheet" href="/code-generate/static/src/css/dragndrop.css" />-->
+                        <!--                <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+                        <!--                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+                        <!--                <script src="/code-generate/static/src/js/dragndrop.js"></script>-->
+                        <!--                <ul class="dragndrop">-->
+                        <!--                    <li id="draggable" class="o_field">Drag me down</li>-->
+                        <!--                </ul>-->
+                        <!--                <div id="o_form" class="o_form">-->
+                        <!--                    <ul class="dragndrop" id="sortable">-->
+                        <!--                        <li class="o_field">Item 1</li>-->
+                        <!--                        <li class="o_field">Item 2</li>-->
+                        <!--                        <li class="o_field">Item 3</li>-->
+                        <!--                        <li class="o_field">Item 4</li>-->
+                        <!--                        <li class="o_field">Item 5</li>-->
+                        <!--                    </ul>-->
+                        <!--                </div>-->
+                        <!--            </div>-->
+                        <!--        </templates>-->
+                        <!--    </group>-->
+                        <!--</page>-->
                     </notebook>
                 </form>
             </field>
