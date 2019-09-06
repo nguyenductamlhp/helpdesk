@@ -2,4 +2,3 @@
 # Copyright (C) 2018 Nguyen Duc Tam <nguyenductamlhp@gmail.com>
 
 from . import hostel
-# from . import base
