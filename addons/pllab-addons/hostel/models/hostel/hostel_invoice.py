@@ -2,6 +2,7 @@
 # Copyright (C) 2018 Nguyen Duc Tam <nguyenductamlhp@gmail.com>
 
 from datetime import datetime
+import time
 
 from odoo import api, fields, models
 from odoo.exceptions import Warning
@@ -12,10 +13,12 @@ class HostelInvoice(models.Model):
 
     name = fields.Char('Reference', compute='_compute_invoice_name')
     room_id = fields.Many2one('hostel.room', 'Room', required=True)
-    date_from = fields.Date('Form')
-    date_to = fields.Date('To')
+    date_from = fields.Date(
+        'Form', required=True, default=lambda *a: time.strftime('%Y-%m-01'))
+    date_to = fields.Date('To', required=True)
     invoice_date = fields.Date('Invoice Date')
     invoice_line_ids = fields.One2many('hostel.invoice.line', 'invoice_id', 'Invoice Lines')
+    participant_ids = fields.One2many('hostel.invoice.participant', 'invoice_id', 'Participants')
     payment_ids = fields.One2many('hostel.invoice.payment', 'invoice_id', 'Payments')
 
     responsible_ids = fields.Many2many('res.partner', string="Responsible")
@@ -32,14 +35,17 @@ class HostelInvoice(models.Model):
 
     @api.onchange('room_id')
     def onchange_reponsible(self):
+        if not self.room_id:
+            return
         self.responsible_ids = self.room_id and self.room_id.member_ids
 
     @api.depends('room_id', 'invoice_date')
     def _compute_invoice_name(self):
         for rec in self:
-            if not all([rec.room_id, rec.invoice_date]):
+            if not all([rec.room_id, rec.date_from, rec.date_to]):
                 continue
-            rec.name = rec.room_id.name + '-' + rec.invoice_date
+            rec.name = '%s (%s - %s)' % (
+                rec.room_id.name, rec.date_from, rec.date_to)
 
     @api.multi
     def generate_payment(self):
@@ -70,8 +76,6 @@ class HostelInvoice(models.Model):
     def reset_to_draft(self):
         for invoice in self:
             for payment in invoice.payment_ids:
-                for line in payment.payment_line_ids:
-                    line.unlink()
                 payment.unlink()
             invoice.state = 'draft'
 
