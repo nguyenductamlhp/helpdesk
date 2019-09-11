@@ -7,27 +7,19 @@ from odoo import api, fields, models
 from odoo.exceptions import Warning
 
 
-class HostelInvoiceLine(models.Model):
-    _name = 'hostel.invoice.line'
+class HostelInvoiceExpense(models.Model):
+    _name = 'hostel.invoice.expense'
 
     invoice_id = fields.Many2one('hostel.invoice', 'Invoice', required=True)
-    invoice_date = fields.Date('Date')
     product_id = fields.Many2one('product.template', string="Product")
     quantity = fields.Integer('Quantity')
     unit_price = fields.Float("Unit Price")
     total = fields.Float("Total", compute='compute_total', store=True)
-    owner_id = fields.Many2one('res.partner', 'Owner')
+    owner_id = fields.Many2one('res.partner', 'Paid By')
+    buy_date = fields.Date('Buy Date')
 
     room_id = fields.Many2one('hostel.room', related="invoice_id.room_id")
     responsible_ids = fields.Many2many('res.partner', string="Responsible", required=True)
-
-    state = fields.Selection(
-        [
-            ('draft', 'Draft'),
-            ('validate', 'Validate')
-        ],
-        string='State',
-        default='draft')
 
     @api.onchange('invoice_id')
     def onchange_reponsible(self):

@@ -3,6 +3,6 @@
 
 from . import hostel_room
 from . import hostel_invoice
-from . import hostel_invoice_line
+from . import hostel_invoice_expense
 from . import hostel_invoice_payment
 from . import hostel_invoice_participant

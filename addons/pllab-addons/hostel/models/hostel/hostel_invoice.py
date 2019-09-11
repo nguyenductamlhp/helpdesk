@@ -6,6 +6,7 @@ import time
 
 from odoo import api, fields, models
 from odoo.exceptions import Warning
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class HostelInvoice(models.Model):
@@ -17,7 +18,7 @@ class HostelInvoice(models.Model):
         'Form', required=True, default=lambda *a: time.strftime('%Y-%m-01'))
     date_to = fields.Date('To', required=True)
     invoice_date = fields.Date('Invoice Date')
-    invoice_line_ids = fields.One2many('hostel.invoice.line', 'invoice_id', 'Invoice Lines')
+    invoice_expense_ids = fields.One2many('hostel.invoice.expense', 'invoice_id', 'Invoice Expenses')
     participant_ids = fields.One2many('hostel.invoice.participant', 'invoice_id', 'Participants')
     payment_ids = fields.One2many('hostel.invoice.payment', 'invoice_id', 'Payments')
 
@@ -68,7 +69,7 @@ class HostelInvoice(models.Model):
         """
         for invoice in self:
             invoice.generate_payment()
-            for line in invoice.invoice_line_ids:
+            for line in invoice.invoice_expense_ids:
                 line.generate_payment_line()
             invoice.state = 'confirm'
 
@@ -85,3 +86,17 @@ class HostelInvoice(models.Model):
         """
         for invoice in self:
             invoice.state = 'validate'
+
+    def get_participants(self, day):
+        """
+        Return participants of invoice on date
+        """
+        self.ensure_one()
+        Participant = self.env['hostel.invoice.participant']
+        day = str(day)
+        process_date = datetime.strptime(day, DEFAULT_SERVER_DATET_FORMAT)
+        participants = Participant.search([
+            ('invoice_id', '=', self.id),
+            ('start', '<=', process_date),
+            ('end', '>=', process_date)])
+        return participants

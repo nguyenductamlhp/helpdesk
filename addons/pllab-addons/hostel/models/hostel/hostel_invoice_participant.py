@@ -3,6 +3,7 @@
 # Copyright (C) 2018 Nguyen Duc Tam <nguyenductamlhp@gmail.com>
 
 from odoo import fields, models, api, _
+from odoo.exceptions import Warning
 
 
 class HostelInvoiceParticipant(models.Model):
@@ -26,3 +27,16 @@ class HostelInvoiceParticipant(models.Model):
     responsible_ids = fields.Many2many(
         'res.partner', string="Responsible",
         related='invoice_id.responsible_ids')
+
+    @api.constrains('invoice_id', 'partner_id', 'start', 'end')
+    def _constrains_not_duplicate_participant(self):
+        Participant = self.env['hostel.invoice.participant']
+        for rec in self:
+            participants = Participant.search([
+                ('id', '!=', self.id),
+                ('invoice_id', '=', rec.id),
+                '|',
+                ('start', '>=', rec.end),
+                ('end', '<=', rec.start)], limit=1)
+            if participants:
+                raise Warning('Can not overlap participant!')
