@@ -5,18 +5,16 @@ from datetime import datetime
 
 from odoo import api, fields, models
 from odoo.exceptions import Warning
-from odoo.exceptions import Warning
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
-class HostelInvoiceExpense(models.Model):
-    _name = 'hostel.invoice.expense'
+class HostelInvoiceExpenseItem(models.Model):
+    _name = 'hostel.invoice.expense.item'
 
-    invoice_id = fields.Many2one('hostel.invoice', 'Invoice', required=True)
-    product_id = fields.Many2one('product.template', string="Product")
-    quantity = fields.Integer('Quantity')
-    unit_price = fields.Float("Unit Price")
-    total = fields.Float("Total", compute='compute_total', store=True)
+    expense_id = fields.Many2one('hostel.invoice.expense', 'Expense')
+    invoice_id = fields.Many2one(
+        'hostel.invoice', related='expense_id.invoice_id')
+    product_id = fields.Many2one('product.template', related='expense_id.product_id')
+    amount = fields.Float("Amount", compute='compute_total', store=True)
     owner_id = fields.Many2one('res.partner', 'Paid By')
     buy_date = fields.Date('Buy Date')
 

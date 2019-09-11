@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 # Copyright (C) 2018 Nguyen Duc Tam <nguyenductamlhp@gmail.com>
 
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 
 from odoo import api, fields, models
@@ -21,6 +21,8 @@ class HostelInvoice(models.Model):
     invoice_expense_ids = fields.One2many('hostel.invoice.expense', 'invoice_id', 'Invoice Expenses')
     participant_ids = fields.One2many('hostel.invoice.participant', 'invoice_id', 'Participants')
     payment_ids = fields.One2many('hostel.invoice.payment', 'invoice_id', 'Payments')
+    total_days = fields.Integer(
+        'Total Days', compute='compute_total_days', store=True)
 
     responsible_ids = fields.Many2many('res.partner', string="Responsible")
     state = fields.Selection(
@@ -100,3 +102,21 @@ class HostelInvoice(models.Model):
             ('start', '<=', process_date),
             ('end', '>=', process_date)])
         return participants
+
+    # def compute_participant_data(self):
+    #     self.ensure_one()
+    #     data = {}
+    #     start = datetime.strptime(self.date_from, DEFAULT_SERVER_DATE_FORMAT)
+    #     end = datetime.strptime(self.date_to, DEFAULT_SERVER_DATE_FORMAT)
+    #     delta = (end - start).days + 1
+    #     for day in range(delta):
+    #         process_date = start + timedelta(days=day)
+    #         participants = self.get_participants(process_date)
+    #         data[process_date] =
+
+    @api.depends('date_from', 'date_to')
+    def compute_total_days(self):
+        for rec in self:
+            start = datetime.strptime(rec.date_from, DEFAULT_SERVER_DATE_FORMAT)
+            end = datetime.strptime(rec.date_to, DEFAULT_SERVER_DATE_FORMAT)
+            rec.total_days = (end - start).days + 1

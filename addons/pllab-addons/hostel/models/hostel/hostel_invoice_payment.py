@@ -23,7 +23,7 @@ class HostelInvoicePayment(models.Model):
         ],
         string='State',
         default='open')
-    total = fields.Float('Total', compute='compute_payment_amount')
+    total = fields.Float('Total to Pay', compute='compute_payment_amount')
     paid = fields.Float('Paid', compute='compute_payment_amount')
     remain = fields.Float('Remain', compute='compute_payment_amount')
 

@@ -48,6 +48,7 @@
                             <field name="partner_id" domain="[('id', 'in', responsible_ids)]"/>
                             <field name="start" />
                             <field name="end" />
+                            <field name="factor" />
                         </tree>
                     </field>
                 </group>
