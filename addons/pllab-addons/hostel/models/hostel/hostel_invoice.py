@@ -15,7 +15,7 @@ class HostelInvoice(models.Model):
     name = fields.Char('Reference', compute='_compute_invoice_name')
     room_id = fields.Many2one('hostel.room', 'Room', required=True)
     date_from = fields.Date(
-        'Form', required=True, default=lambda *a: time.strftime('%Y-%m-01'))
+        'From', required=True, default=lambda *a: time.strftime('%Y-%m-01'))
     date_to = fields.Date('To', required=True)
     invoice_date = fields.Date('Invoice Date')
     invoice_expense_ids = fields.One2many('hostel.invoice.expense', 'invoice_id', 'Invoice Expenses')

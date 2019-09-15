@@ -41,9 +41,10 @@
 
                 </group>
                 <group string="Participants">
-                    <field name="participant_ids" nolabel="1" context="{'default_invoice_id': active_id}">
+                    <field name="participant_ids" nolabel="1"
+                        context="{'default_invoice_id': active_id, 'default_start': date_from, 'default_end': date_to}">
                         <tree editable="bottom">
-                            <field name="invoice_id" invisible="0"/>
+                            <field name="invoice_id" invisible="1"/>
                             <field name="responsible_ids" invisible="1"/>
                             <field name="partner_id" domain="[('id', 'in', responsible_ids)]"/>
                             <field name="start" />
@@ -53,7 +54,8 @@
                     </field>
                 </group>
                 <group string="Invoice Lines">
-                    <field name="invoice_expense_ids" nolabel="1" context="{'default_invoice_id': active_id}">
+                    <field name="invoice_expense_ids" nolabel="1"
+                            context="{'default_invoice_id': active_id, 'default_start': date_from, 'default_end': date_to}">
                         <tree editable="bottom">
                             <field name="invoice_id" invisible="1"/>
                             <field name="product_id" />
