@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 # Copyright (C) 2018 Nguyen Duc Tam <nguyenductamlhp@gmail.com>
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from odoo import api, fields, models
 from odoo.exceptions import Warning
@@ -18,10 +18,13 @@ class HostelInvoiceExpense(models.Model):
     unit_price = fields.Float("Unit Price")
     total = fields.Float("Total", compute='compute_total', store=True)
     owner_id = fields.Many2one('res.partner', 'Paid By')
-    buy_date = fields.Date('Buy Date')
+    buy_date = fields.Date('Buy Date', default=datetime.now().date())
 
     room_id = fields.Many2one('hostel.room', related="invoice_id.room_id")
-    responsible_ids = fields.Many2many('res.partner', string="Responsible", required=True)
+    responsible_ids = fields.Many2many(
+        'res.partner', string="Responsible", required=True)
+    cost_granular = fields.Float(
+        'Cost Granular', compute='compute_cost_granular')
 
     @api.onchange('invoice_id')
     def onchange_reponsible(self):
@@ -76,6 +79,21 @@ class HostelInvoiceExpense(models.Model):
             process_date = start + timedelta(days=day)
             participants = self.get_participants(process_date)
             total += len(participants & self.responsible_ids)
-
         return total / delta
 
+    @api.multi
+    def compute_cost_granular(self):
+        '''
+        '''
+        for rec in self:
+            # foreacch day from start to end of month
+            total = 0
+            invoice = rec.invoice_id
+            start = datetime.strptime(invoice.date_from, DEFAULT_SERVER_DATE_FORMAT)
+            end = datetime.strptime(invoice.date_to, DEFAULT_SERVER_DATE_FORMAT)
+            delta = (end - start).days + 1
+            for day in range(delta):
+                process_date = start + timedelta(days=day)
+                participants = invoice.get_participants(process_date)
+                total += len(participants & rec.responsible_ids)
+            rec.cost_granular = rec.total / total

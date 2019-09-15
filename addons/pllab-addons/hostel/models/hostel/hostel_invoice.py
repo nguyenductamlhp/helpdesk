@@ -6,7 +6,7 @@ import time
 
 from odoo import api, fields, models
 from odoo.exceptions import Warning
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class HostelInvoice(models.Model):
@@ -96,12 +96,12 @@ class HostelInvoice(models.Model):
         self.ensure_one()
         Participant = self.env['hostel.invoice.participant']
         day = str(day)
-        process_date = datetime.strptime(day, DEFAULT_SERVER_DATET_FORMAT)
+        process_date = datetime.strptime(day, DEFAULT_SERVER_DATETIME_FORMAT).date()
         participants = Participant.search([
             ('invoice_id', '=', self.id),
             ('start', '<=', process_date),
             ('end', '>=', process_date)])
-        return participants
+        return participants.mapped('partner_id')
 
     # def compute_participant_data(self):
     #     self.ensure_one()
