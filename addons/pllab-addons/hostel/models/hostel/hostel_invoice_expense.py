@@ -12,6 +12,12 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 class HostelInvoiceExpense(models.Model):
     _name = 'hostel.invoice.expense'
 
+    def default_responsible(self):
+        if self.invoice_id:
+            import pdb; pdb.set_trace()
+            return self.invoice_id.participant_ids
+        return None
+
     invoice_id = fields.Many2one('hostel.invoice', 'Invoice', required=True)
     product_id = fields.Many2one('product.template', string="Product")
     quantity = fields.Integer('Quantity')
@@ -22,18 +28,26 @@ class HostelInvoiceExpense(models.Model):
 
     room_id = fields.Many2one('hostel.room', related="invoice_id.room_id")
     responsible_ids = fields.Many2many(
-        'res.partner', string="Responsible", required=True)
-    cost_granular = fields.Float(
-        'Cost Granular', compute='compute_cost_granular')
+        'hostel.invoice.participant', string="Responsible", required=True,
+        default=lambda self: self.default_responsible())
+    sum_factor = fields.Float(
+        'Sum factor', compute='compute_sum_factor')
+    item_ids = fields.One2many('hostel.invoice.expense.item', 'expense_id')
+
 
     @api.onchange('invoice_id')
     def onchange_reponsible(self):
-        self.responsible_ids = self.invoice_id and self.invoice_id.responsible_ids
+        self.responsible_ids = self.invoice_id and self.invoice_id.participant_ids
 
     @api.depends('quantity', 'unit_price')
     def compute_total(self):
         for line in self:
             line.total = line.quantity * line.unit_price
+
+    @api.depends('responsible_ids', 'responsible_ids.factor')
+    def compute_sum_factor(self):
+        for rec in self:
+            rec.sum_factor = sum([p.factor for p in rec.responsible_ids])
 
     @api.multi
     def generate_payment_line(self):
@@ -81,19 +95,19 @@ class HostelInvoiceExpense(models.Model):
             total += len(participants & self.responsible_ids)
         return total / delta
 
-    @api.multi
-    def compute_cost_granular(self):
-        '''
-        '''
-        for rec in self:
-            # foreacch day from start to end of month
-            total = 0
-            invoice = rec.invoice_id
-            start = datetime.strptime(invoice.date_from, DEFAULT_SERVER_DATE_FORMAT)
-            end = datetime.strptime(invoice.date_to, DEFAULT_SERVER_DATE_FORMAT)
-            delta = (end - start).days + 1
-            for day in range(delta):
-                process_date = start + timedelta(days=day)
-                participants = invoice.get_participants(process_date)
-                total += len(participants & rec.responsible_ids)
-            rec.cost_granular = rec.total / total
+    # @api.multi
+    # def compute_cost_granular(self):
+    #     '''
+    #     '''
+    #     for rec in self:
+    #         # foreacch day from start to end of month
+    #         total = 0
+    #         invoice = rec.invoice_id
+    #         start = datetime.strptime(invoice.date_from, DEFAULT_SERVER_DATE_FORMAT)
+    #         end = datetime.strptime(invoice.date_to, DEFAULT_SERVER_DATE_FORMAT)
+    #         delta = (end - start).days + 1
+    #         for day in range(delta):
+    #             process_date = start + timedelta(days=day)
+    #             participants = invoice.get_participants(process_date)
+    #             total += len(participants & rec.responsible_ids)
+    #         rec.cost_granular = rec.total / total

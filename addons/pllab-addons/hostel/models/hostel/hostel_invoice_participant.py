@@ -11,6 +11,8 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 class HostelInvoiceParticipant(models.Model):
     _name = 'hostel.invoice.participant'
 
+    name = fields.Char(
+        'Name', compute='compute_invoice_participant_name', store=True)
     invoice_id = fields.Many2one(
         'hostel.invoice', string='Invoice', required=True, readonly=True)
     partner_id = fields.Many2one(
@@ -20,7 +22,7 @@ class HostelInvoiceParticipant(models.Model):
     end = fields.Date(
         string='End', required=True, help='End',
         default=lambda self: self.invoice_id and self.invoice_id.date_to)
-    factor = fields.Float('Factor', compute='compute_factor', store=True)
+    factor = fields.Float('Factor', compute='compute_factor', store=True, digits=(12,1))
     responsible_ids = fields.Many2many(
         'res.partner', string="Responsible",
         related='invoice_id.responsible_ids')
@@ -47,3 +49,9 @@ class HostelInvoiceParticipant(models.Model):
             end = datetime.strptime(rec.end, DEFAULT_SERVER_DATE_FORMAT)
             delta = (end - start).days + 1
             rec.factor = delta / rec.invoice_id.total_days
+
+    @api.depends(
+        'invoice_id', 'invoice_id.date_from', 'invoice_id.date_to', 'factor')
+    def compute_invoice_participant_name(self):
+        for rec in self:
+            rec.name = '%s - %s' % (rec.partner_id.name, rec.factor)
