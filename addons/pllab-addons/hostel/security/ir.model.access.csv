@@ -1,4 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+hostel_viewer_hostel_room,hostel_viewer_hostel_room,model_hostel_room,hostel.group_hostel_viewer,1,0,0,0
+hostel_user_hostel_room,hostel_user_hostel_room,model_hostel_room,hostel.group_hostel_user,1,1,1,0
+hostel_admin_hostel_room,hostel_admin_hostel_room,model_hostel_room,hostel.group_hostel_manager,1,1,1,1
 hostel_viewer_hostel_invoice,hostel_viewer_hostel_invoice,model_hostel_invoice,hostel.group_hostel_viewer,1,0,0,0
 hostel_user_hostel_invoice,hostel_user_hostel_invoice,model_hostel_invoice,hostel.group_hostel_user,1,1,1,0
 hostel_admin_hostel_invoice,hostel_admin_hostel_invoice,model_hostel_invoice,hostel.group_hostel_manager,1,1,1,1
