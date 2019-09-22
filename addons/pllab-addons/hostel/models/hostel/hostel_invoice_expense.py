@@ -20,11 +20,12 @@ class HostelInvoiceExpense(models.Model):
 
     invoice_id = fields.Many2one('hostel.invoice', 'Invoice', required=True)
     product_id = fields.Many2one('product.template', string="Product")
-    quantity = fields.Integer('Quantity')
+    quantity = fields.Integer('Quantity', default=1)
     unit_price = fields.Float("Unit Price")
     total = fields.Float("Total", compute='compute_total', store=True)
     owner_id = fields.Many2one('res.partner', 'Paid By')
     buy_date = fields.Date('Buy Date', default=datetime.now().date())
+    note = fields.Text('Note')
 
     room_id = fields.Many2one('hostel.room', related="invoice_id.room_id")
     responsible_ids = fields.Many2many(

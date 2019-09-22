@@ -7,6 +7,10 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" string="Name"/>
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="invoice_date" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -69,6 +73,7 @@
                             <field name="owner_id" domain="[('id', 'in', parent.responsible_ids)]"/>
                             <field name="responsible_ids" widget="many2many_tags" domain="[('id', 'in', parent.participant_ids)]"/>
                             <field name="sum_factor" />
+                            <field name="note" />
                         </tree>
                         <form>
                             <group>
