@@ -11,7 +11,8 @@
         'base', 'product',
     ],
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/res_group_data.xml',
+        'security/ir.model.access.csv',
         # 'views/base/res_partner_view.xml',
         'views/hostel/hostel_room_view.xml',
         'views/hostel/hostel_invoice_view.xml',
