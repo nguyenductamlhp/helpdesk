@@ -26,6 +26,6 @@
         # 'security/ir.model.access.csv',
 
         'views/helpdesk/helpdesk_ticket_view.xml',
-        # 'views/templates.xml',
+        'views/project/project_task_view.xml',
     ],
 }
