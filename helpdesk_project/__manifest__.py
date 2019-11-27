@@ -24,7 +24,8 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        # 'views/views.xml',
+
+        'views/helpdesk/helpdesk_ticket_view.xml',
         # 'views/templates.xml',
     ],
 }
