@@ -43,7 +43,7 @@ class HelpdeskTicket(models.Model):
 
     last_stage_update = fields.Datetime(
         string='Last Stage Update',
-        default=fields.Datetime.now(),
+        default=fields.Datetime.now,
     )
     assigned_date = fields.Datetime(string='Assigned Date')
     closed_date = fields.Datetime(string='Closed Date')
@@ -75,6 +75,11 @@ class HelpdeskTicket(models.Model):
         'ir.attachment', 'res_id',
         domain=[('res_model', '=', 'helpdesk.ticket')],
         string="Media Attachments")
+    color = fields.Integer(string='Color Index')
+    kanban_state = fields.Selection([
+        ('normal', 'Default'),
+        ('done', 'Ready for next stage'),
+        ('blocked', 'Blocked')], string='Kanban State')
 
     def send_user_mail(self):
         self.env.ref('helpdesk_mgmt.assignment_email_template'). \
@@ -121,6 +126,8 @@ class HelpdeskTicket(models.Model):
         # Check if mail to the user has to be sent
         if vals.get('user_id') and res:
             res.send_user_mail()
+            if not vals.get('assigned_date'):
+                res['assigned_date'] = fields.Datetime.now()
         return res
 
     @api.multi
