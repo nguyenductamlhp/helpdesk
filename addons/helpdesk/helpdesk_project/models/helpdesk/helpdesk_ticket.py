@@ -8,3 +8,5 @@ class HelpdeskTicket(models.Model):
     task_ids = fields.One2many(
         'project.task', 'helpdesk_ticket_id',
         string="Tasks")
+    project_id = fields.Many2one(
+        'project.project', string='Project')
