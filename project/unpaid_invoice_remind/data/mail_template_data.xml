@@ -32,8 +32,9 @@
                           <table width="590" border="0" cellpadding="0" bgcolor="#ffffff" style="min-width: 590px; background-color: rgb(255, 255, 255); padding: 20px; border-collapse:separate;">
                             <tbody>
                               <td valign="top" style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;">
-                                <p>Kính gửi ${object.partner_id.title} ${object.partner_id.email},</p>
-                                <p>Hóa đơn ${object.number} đã tới hạn thanh toán. Vui lòng thanh toán trước ngày ${object.date_due}</p>
+                                <p>Kính gửi ${object.partner_id.title.name} ${object.partner_id.name},</p>
+                                <p>Hóa đơn ${object.number} đã tới hạn thanh toán. Số tiền cần thanh toán là ${object.residual}.</p>
+                                <p>Vui lòng thanh toán trước ngày ${object.date_due}</p>
                                 <p>Xin chân thành cảm ơn!</p>
                               </td>
                             </tbody>

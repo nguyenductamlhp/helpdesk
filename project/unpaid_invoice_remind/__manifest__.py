@@ -23,5 +23,6 @@
         # 'security/ir.model.access.csv',
         'data/mail_template_data.xml',
         'data/ir_cron_data.xml',
+        'views/account_invoice_view.xml',
     ],
 }

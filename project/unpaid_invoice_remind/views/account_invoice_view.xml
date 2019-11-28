@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_account_invoice_form_inherit" model="ir.ui.view">
+        <field name="name">view.account.invoice.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_invoice_draft']" position="after">
+                <button name="send_email_late_paiding_invoice" states="open" string="Remind Late Invoice"
+                    type="object" groups="account.group_account_invoice"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
