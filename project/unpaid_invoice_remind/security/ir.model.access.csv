@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_unpaid_invoice_remind_unpaid_invoice_remind,unpaid_invoice_remind.unpaid_invoice_remind,model_unpaid_invoice_remind_unpaid_invoice_remind,,1,0,0,0
