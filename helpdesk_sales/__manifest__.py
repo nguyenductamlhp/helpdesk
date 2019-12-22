@@ -16,9 +16,11 @@ Features:
     'version': '11.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['helpdesk_mgnt', 'sale_management'],
+    'depends': ['helpdesk_mgmt', 'sale_management'],
 
     'data': [
         # 'security/ir.model.access.csv',
+
+        'views/helpdesk/helpdesk_ticket_view.xml',
     ],
 }
