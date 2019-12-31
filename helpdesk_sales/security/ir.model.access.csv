@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_helpdesk_sales_helpdesk_sales,helpdesk_sales.helpdesk_sales,model_helpdesk_sales_helpdesk_sales,,1,0,0,0
