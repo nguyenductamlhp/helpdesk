@@ -15,9 +15,10 @@
     'category': 'Helpdesk',
     'version': '11.0.1',
 
-    'depends': ['base', 'helpdesk_mgnt'],
+    'depends': ['base', 'helpdesk_mgmt'],
 
     # always loaded
     'data': [
+        'views/helpdesk/helpdesk_ticket_view.xml',
     ],
 }
