@@ -24,5 +24,6 @@ class HelpdeskTicket(models.Model):
                 'helpdesk_ticket_id': ticket.id,
                 'name': ticket.name,
                 'description': ticket.description,
-                'partner_id': ticket.partner_id and ticket.partner_id.id
+                'partner_id': ticket.partner_id and ticket.partner_id.id,
+                'planned_hours': ticket.estimation
             })
