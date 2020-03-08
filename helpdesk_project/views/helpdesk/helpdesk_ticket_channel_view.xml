@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="helpdesk_ticket_channel_view_tree_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.channel.view.tree.inherit</field>
+        <field name="model">helpdesk.ticket.channel</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_channel_tree"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='active']" position="before">
+                <field name="default_team_id"/>
+                <field name="default_assignee_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

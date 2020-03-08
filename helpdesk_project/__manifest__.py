@@ -6,16 +6,13 @@
         Link between project and helpdesk module""",
 
     'description': """
-        Long description of module's purpose
+        Link between project and helpdesk module
     """,
 
     'author': "nguyenductamlhp",
-    'website': "http://www.yourcompany.com",
+    'website': "http://www.pllabvn.com",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
-    # for the full list
-    'category': 'Uncategorized',
+    'category': 'Helpdesk',
     'version': '11.0.1',
 
     # any module necessary for this one to work correctly
@@ -26,6 +23,7 @@
         # 'security/ir.model.access.csv',
 
         'views/helpdesk/helpdesk_ticket_view.xml',
+        'views/helpdesk/helpdesk_ticket_channel_view.xml',
         'views/project/project_task_view.xml',
     ],
 }

@@ -27,3 +27,24 @@ class HelpdeskTicket(models.Model):
                 'partner_id': ticket.partner_id and ticket.partner_id.id,
                 'planned_hours': ticket.estimation
             })
+
+    @api.model
+    def create(self, vals):
+        res = super(HelpdeskTicket, self).create(vals)
+        res.set_default_channel_data()
+        return res
+
+    @api.multi
+    def set_default_channel_data(self):
+        '''
+        When ticket is created, set default team and assignee from channel
+        '''
+        for ticket in self:
+            if not ticket.channel_id:
+                continue
+            ticket.write({
+                'team_id': ticket.channel_id.default_team_id and \
+                    ticket.channel_id.default_team_id.id,
+                'user_id': ticket.channel_id.default_assignee_id and \
+                    ticket.channel_id.default_assignee_id.id or None
+            })
