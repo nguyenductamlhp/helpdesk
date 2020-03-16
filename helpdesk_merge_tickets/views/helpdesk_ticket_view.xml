@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <act_window name="Merge Tickets"
+            res_model="merge.tickets.wizard"
+            src_model="helpdesk.ticket"
+            view_mode="form"
+            multi="True"
+            target="new"
+            key2="client_action_multi"
+            id="helpdesk_merge_tickets.action_merge_tickets"
+            context="{}"
+            />
+    </data>
+    <record id="view_helpdesk_ticket_form_inherit" model="ir.ui.view">
+        <field name="name">view.helpdesk.ticket.form.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_info']" position="after">
+                <page string="Children Tickets" name="children_ticket">
+                    <group>
+                        <field name="child_ids" nolabel="1"/>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='channel_id']" position="after">
+                <field name="parent_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
