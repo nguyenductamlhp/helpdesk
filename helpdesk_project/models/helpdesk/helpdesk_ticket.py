@@ -1,4 +1,5 @@
 from odoo import _, api, fields, models, tools
+from odoo.exceptions import Warning
 
 
 class HelpdeskTicket(models.Model):
@@ -8,8 +9,15 @@ class HelpdeskTicket(models.Model):
     task_ids = fields.One2many(
         'project.task', 'helpdesk_ticket_id',
         string="Tasks", track_visibility='onchange')
+    count_task = fields.Integer(
+        'Number of Tasks', compute='_compute_no_of_task', store=True)
     project_id = fields.Many2one(
         'project.project', string='Project', track_visibility='onchange')
+
+    @api.depends('task_ids')
+    def _compute_no_of_task(self):
+        for ticket in self:
+            ticket.count_task = len(ticket.task_ids)
 
     @api.multi
     def create_project_task(self):
@@ -18,6 +26,8 @@ class HelpdeskTicket(models.Model):
         """
         Task = self.env['project.task']
         for ticket in self:
+            if not ticket.project_id:
+                raise Warning("Missing ticket's project")
             Task.create({
                 'project_id': ticket.project_id and ticket.project_id.id,
                 'user_id': ticket.user_id and ticket.user_id.id,
