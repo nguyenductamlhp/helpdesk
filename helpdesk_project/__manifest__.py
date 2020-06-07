@@ -25,5 +25,7 @@
         'views/helpdesk/helpdesk_ticket_view.xml',
         'views/helpdesk/helpdesk_ticket_channel_view.xml',
         'views/project/project_task_view.xml',
+
+        'views/templates.xml',
     ],
 }

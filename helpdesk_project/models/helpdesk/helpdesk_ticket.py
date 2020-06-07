@@ -13,6 +13,7 @@ class HelpdeskTicket(models.Model):
         'Number of Tasks', compute='_compute_no_of_task', store=True)
     project_id = fields.Many2one(
         'project.project', string='Project', track_visibility='onchange')
+    project_name = fields.Char('Project Name', related='project_id.name')
 
     @api.depends('task_ids')
     def _compute_no_of_task(self):
