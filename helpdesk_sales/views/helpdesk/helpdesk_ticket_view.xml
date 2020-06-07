@@ -11,7 +11,9 @@
             </xpath>
             <xpath expr="//field[@name='channel_id']" position="after">
                 <field name="estimation" />
-                <field name="sale_order_id" domain="[('partner_id', '=', partner_id)]" context="{'default_partner_id': partner_id}"/>
+                <field name="sale_order_id"
+                    domain="[('partner_id', '=', partner_id)]" context="{'default_partner_id': partner_id}"
+                    attrs="{'invisible': [('estimation', '=', 0)]}"/>
             </xpath>
         </field>
     </record>
