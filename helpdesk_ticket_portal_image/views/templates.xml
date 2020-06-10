@@ -5,7 +5,7 @@
                 <div t-if="ticket.attachment_ids">
                     <h4 class="page-header">Attachments</h4>
                     <t t-foreach="ticket.attachment_ids" t-as="attachment">
-                        <div t-if="attachment.datas" class="o_attachment_image mb4" style="border: solid">
+                        <div t-if="attachment.datas and attachment.mimetype in ['image/png', 'image/jpeg']" class="o_attachment_image mb4" style="border: solid">
                             <img t-attf-src="/web/image/#{attachment.id}?download=1" width="100%" />
                         </div>
                     </t>
