@@ -20,6 +20,13 @@
             <xpath expr="//field[@name='partner_email']" position="after">
                 <field name="project_id" domain="[('partner_id', '=', partner_id)]"/>
             </xpath>
+            <xpath expr="//sheet/group[@name='main']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_related_tasks" type="object" class="oe_stat_button" icon="fa-tasks" attrs="{'invisible' : [('parent_id', '!=', False)]}" context="{'project_id': project_id, 'helpdesk_ticket_id': active_id}" >
+                        <field string="Tasks" name="count_task" widget="statinfo"/>
+                    </button>
+                </div>
+            </xpath>
         </field>
     </record>
 </odoo>

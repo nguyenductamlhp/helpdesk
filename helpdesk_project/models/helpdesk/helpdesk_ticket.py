@@ -59,3 +59,19 @@ class HelpdeskTicket(models.Model):
                 'user_id': ticket.channel_id.default_assignee_id and \
                     ticket.channel_id.default_assignee_id.id or None
             })
+
+    @api.multi
+    def action_related_tasks(self):
+        self.ensure_one()
+        action = self.env.ref('project.project_task_action_sub_task').read()[0]
+        ctx = self.env.context.copy()
+        ctx.update({
+            'default_project_id' :  self.project_id.id,
+            'default_partner_id' : self.partner_id.id,
+            'default_helpdesk_ticket_id': self.id,
+            'default_planned_hours': self.estimation,
+            'search_default_project_id': self.env.context.get('project_id', self.project_id.id),
+        })
+        action['context'] = ctx
+        action['domain'] = [('id', 'in', self.task_ids.ids)]
+        return action
