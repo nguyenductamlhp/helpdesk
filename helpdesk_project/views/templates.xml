@@ -7,8 +7,11 @@
                         <tr class="active">
                             <th>By</th>
                             <th>Project</th>
-                            <th>Name</th>
                             <th>Category</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Estimation</th>
+                            <th>Cost</th>
                             <th>Stage</th>
                             <th>Create Date</th>
                             <th>Last Stage Update</th>
@@ -24,12 +27,21 @@
                                 <t t-esc="ticket.project_name"/>
                             </td>
                             <td>
+                                <t t-esc="ticket.category_id.name"/>
+                            </td>
+                            <td>
+                              <t t-esc="ticket.number"/>
+                            </td>
+                            <td>
                                 <a t-attf-href="/my/ticket/#{ticket.id}">
                                 <t t-esc="ticket.name"/>
                                 </a>
                             </td>
                             <td>
-                                <t t-esc="ticket.category_id.name"/>
+                                <t t-esc="ticket.estimation"/>
+                            </td>
+                            <td>
+                                <t t-esc="ticket.sale_order_id.amount_total"/>
                             </td>
                             <td>
                                 <t t-esc="ticket.stage_id.name"/>
