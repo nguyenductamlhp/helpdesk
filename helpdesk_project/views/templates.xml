@@ -11,7 +11,6 @@
                             <th>Code</th>
                             <th>Name</th>
                             <th>Estimation</th>
-                            <th>Cost</th>
                             <th>Stage</th>
                             <th>Create Date</th>
                             <th>Last Stage Update</th>
@@ -39,9 +38,6 @@
                             </td>
                             <td>
                                 <t t-esc="ticket.estimation"/>
-                            </td>
-                            <td>
-                                <t t-esc="ticket.sale_order_id.amount_total"/>
                             </td>
                             <td>
                                 <t t-esc="ticket.stage_id.name"/>
