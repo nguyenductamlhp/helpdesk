@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+        <template id="assets_frontend" name="CMS delete content frontend assets" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                  <!-- Main Quill library -->
+                <script src="/helpdesk_portal_richtext/static/src/lib/quill/quill.core.js"></script>
+                <script src="/helpdesk_portal_richtext/static/src/lib/quill/quill.js"></script>
+                <script src="/helpdesk_portal_richtext/static/src/lib/quill/quill.min.js"></script>
+                <!-- Theme included stylesheets -->
+                <link href="/helpdesk_portal_richtext/static/src/lib/quill/quill.core.css" rel="stylesheet"/>
+                <link href="/helpdesk_portal_richtext/static/src/lib/quill/quill.snow.css" rel="stylesheet"/>
+                <link href="/helpdesk_portal_richtext/static/src/lib/quill/quill.bubble.css" rel="stylesheet"/>
+
+                <script src="/helpdesk_portal_richtext/static/src/js/helpdesk_portal_richtext.js"></script>
+            </xpath>
+        </template>
+        <template id="portal_create_ticket_richtext" inherit_id="helpdesk_mgmt.portal_create_ticket">
+            <xpath expr="//textarea[@name='description']" position="replace" >
+                <div class="form-group">
+                    <div id="toolbar-container">
+                        <span class="ql-formats">
+                        <select class="ql-font"></select>
+                        <select class="ql-size"></select>
+                        </span>
+                        <span class="ql-formats">
+                        <button class="ql-bold"></button>
+                        <button class="ql-italic"></button>
+                        <button class="ql-underline"></button>
+                        <button class="ql-strike"></button>
+                        </span>
+                        <span class="ql-formats">
+                        <select class="ql-color"></select>
+                        <select class="ql-background"></select>
+                        </span>
+                        <span class="ql-formats">
+                        <button class="ql-script" value="sub"></button>
+                        <button class="ql-script" value="super"></button>
+                        </span>
+                        <span class="ql-formats">
+                        <button class="ql-header" value="1"></button>
+                        <button class="ql-header" value="2"></button>
+                        <button class="ql-blockquote"></button>
+                        <button class="ql-code-block"></button>
+                        </span>
+                        <span class="ql-formats">
+                        <button class="ql-list" value="ordered"></button>
+                        <button class="ql-list" value="bullet"></button>
+                        <button class="ql-indent" value="-1"></button>
+                        <button class="ql-indent" value="+1"></button>
+                        </span>
+                        <span class="ql-formats">
+                        <button class="ql-direction" value="rtl"></button>
+                        <select class="ql-align"></select>
+                        </span>
+                        <span class="ql-formats">
+                        <button class="ql-link"></button>
+                        <button class="ql-image"></button>
+                        <button class="ql-video"></button>
+                        <button class="ql-formula"></button>
+                        </span>
+                        <span class="ql-formats">
+                        <button class="ql-clean"></button>
+                        </span>
+                    </div>
+                    <div id="editor-container" />
+                    <textarea id="hiddeninput" name="description" style="display: None"></textarea>
+                    <script>
+                    var quill = new Quill('#editor-container', {
+                        modules: {
+                          formula: true,
+                          syntax: true,
+                          toolbar: '#toolbar-container'
+                        },
+                        placeholder: '...',
+                        theme: 'snow'
+                      });
+                    </script>
+                </div>
+             </xpath>
+         </template>
+    </data>
+</odoo>
