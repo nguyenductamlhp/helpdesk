@@ -1,60 +1,22 @@
 <odoo>
     <data>
-         <template id="portal_my_tickets" inherit_id="helpdesk_mgmt.portal_my_tickets">
-            <xpath expr="//table[hasclass('o_portal_my_doc_table')]" position="replace" >
-                <table class="table table-hover o_portal_my_doc_table">
-                    <thead>
-                        <tr class="active">
-                            <th>By</th>
-                            <th>Project</th>
-                            <th>Category</th>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Estimation</th>
-                            <th>Stage</th>
-                            <th>Create Date</th>
-                            <th>Last Stage Update</th>
-                            <th>Close Date</th>
-                        </tr>
-                    </thead>
-                    <t t-foreach="tickets" t-as="ticket">
-                        <tr>
-                            <td>
-                                <t t-esc="ticket.partner_id.name"/>
-                            </td>
-                            <td>
-                                <t t-esc="ticket.project_name"/>
-                            </td>
-                            <td>
-                                <t t-esc="ticket.category_id.name"/>
-                            </td>
-                            <td>
-                              <t t-esc="ticket.number"/>
-                            </td>
-                            <td>
-                                <a t-attf-href="/my/ticket/#{ticket.id}">
-                                <t t-esc="ticket.name"/>
-                                </a>
-                            </td>
-                            <td>
-                                <t t-esc="ticket.estimation"/>
-                            </td>
-                            <td>
-                                <t t-esc="ticket.stage_id.name"/>
-                            </td>
-                            <td>
-                                <span t-field="ticket.create_date"/>
-                            </td>
-                            <td>
-                                <span t-field="ticket.last_stage_update"/>
-                            </td>
-                            <td>
-                                <span t-field="ticket.closed_date" />
-                            </td>
-                        </tr>
-                    </t>
-                </table>
-             </xpath>
-         </template>
+        <!-- <template id="listing"> -->
+        <!--   <ul> -->
+        <!--     <li t-foreach="objects" t-as="object"> -->
+        <!--       <a t-attf-href="#{ root }/objects/#{ object.id }"> -->
+        <!--         <t t-esc="object.display_name"/> -->
+        <!--       </a> -->
+        <!--     </li> -->
+        <!--   </ul> -->
+        <!-- </template> -->
+        <!-- <template id="object"> -->
+        <!--   <h1><t t-esc="object.display_name"/></h1> -->
+        <!--   <dl> -->
+        <!--     <t t-foreach="object._fields" t-as="field"> -->
+        <!--       <dt><t t-esc="field"/></dt> -->
+        <!--       <dd><t t-esc="object[field]"/></dd> -->
+        <!--     </t> -->
+        <!--   </dl> -->
+        <!-- </template> -->
     </data>
 </odoo>

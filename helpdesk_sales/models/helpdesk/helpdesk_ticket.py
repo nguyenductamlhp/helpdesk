@@ -8,6 +8,7 @@ class HelpdeskTicket(models.Model):
 
     estimation = fields.Float('Workload Estimation')
     sale_order_id = fields.Many2one('sale.order', "Sale Order")
+<<<<<<< HEAD
 
     def create_sale_order(self):
         self.ensure_one()
@@ -21,3 +22,5 @@ class HelpdeskTicket(models.Model):
             'context': {
                 'default_partner_id': self.partner_id and self.partner_id.id}
         }
+=======
+>>>>>>> dfbbb35a03dd0bc92d58312b81e19f93a712b04b

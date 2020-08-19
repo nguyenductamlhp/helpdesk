@@ -27,6 +27,7 @@
                     </button>
                 </div>
             </xpath>
+
         </field>
     </record>
 </odoo>

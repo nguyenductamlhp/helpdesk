@@ -5,6 +5,7 @@
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"></field>
         <field name="arch" type="xml">
+<<<<<<< HEAD
             <xpath expr="//header" position="inside">
                 <button name="create_sale_order" string="Create Sale Order" type="object" class="oe_highlight"
                     attrs="{'invisible': ['|', ('estimation', '=', 0), ('sale_order_id', '!=', False)]}"></button>
@@ -14,6 +15,11 @@
                 <field name="sale_order_id"
                     domain="[('partner_id', '=', partner_id)]" context="{'default_partner_id': partner_id}"
                     attrs="{'invisible': [('estimation', '=', 0)]}"/>
+=======
+            <xpath expr="//field[@name='channel_id']" position="after">
+                <field name="estimation" />
+                <field name="sale_order_id" domain="[('partner_id', '=', partner_id)]" context="{'default_partner_id': partner_id}"/>
+>>>>>>> dfbbb35a03dd0bc92d58312b81e19f93a712b04b
             </xpath>
         </field>
     </record>

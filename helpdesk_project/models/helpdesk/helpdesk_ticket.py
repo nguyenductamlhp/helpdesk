@@ -59,6 +59,7 @@ class HelpdeskTicket(models.Model):
                 'user_id': ticket.channel_id.default_assignee_id and \
                     ticket.channel_id.default_assignee_id.id or None
             })
+<<<<<<< HEAD
 
     @api.multi
     def action_related_tasks(self):
@@ -75,3 +76,5 @@ class HelpdeskTicket(models.Model):
         action['context'] = ctx
         action['domain'] = [('id', 'in', self.task_ids.ids)]
         return action
+=======
+>>>>>>> dfbbb35a03dd0bc92d58312b81e19f93a712b04b

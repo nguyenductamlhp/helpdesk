@@ -20,6 +20,10 @@ Features:
 
     'data': [
         # 'security/ir.model.access.csv',
+<<<<<<< HEAD
+=======
+
+>>>>>>> dfbbb35a03dd0bc92d58312b81e19f93a712b04b
         'views/helpdesk/helpdesk_ticket_view.xml',
     ],
 }

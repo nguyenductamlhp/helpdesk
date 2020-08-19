@@ -27,5 +27,6 @@
         'views/project/project_task_view.xml',
 
         'views/templates.xml',
+
     ],
 }
